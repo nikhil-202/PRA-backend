@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Image Upload</title>
+	</head>
+	<body>
+		<form id="imageForm">
+			<input type="file" id="imageInput" accept="image/*" name="file"/>
+			<button type="submit">Submit</button>
+		</form>
+
+		<script>
+			const form = document.getElementById('imageForm');
+			form.addEventListener('submit', async (event) => {
+				event.preventDefault();
+				const imageInput = document.getElementById('imageInput');
+				const imageFile = imageInput.files[0];
+
+				const formData = new FormData();
+				formData.append('image', imageFile);
+
+				try {
+					await fetch('http://localhost:5000/delete-files', {
+						method: 'DELETE'
+					});
+					const response = await fetch('http://localhost:5000/image', {
+						method: 'POST',
+						body: formData
+					});
+					// Handle the response from the backend as needed
+				} catch (error) {
+					console.error(error);
+				}
+			});
+		</script>
+	</body>
+</html>
