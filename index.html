@@ -25,7 +25,10 @@
 					});
 					const response = await fetch('http://localhost:5000/image', {
 						method: 'POST',
-						body: formData
+						body: formData,
+						headers: {
+							'Content-Type': imageFile.type // Set the Content-Type header based on the image file type
+						},
 					});
 					// Handle the response from the backend as needed
 				} catch (error) {
